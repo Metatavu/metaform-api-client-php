@@ -5,6 +5,7 @@ All URIs are relative to *https://localhost*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**createMetaform**](MetaformsApi.md#createMetaform) | **POST** /realms/{realmId}/metaforms | create new Metaform
+[**deleteMetaform**](MetaformsApi.md#deleteMetaform) | **DELETE** /realms/{realmId}/metaforms/{metaformId} | Deletes Metaform
 [**findMetaform**](MetaformsApi.md#findMetaform) | **GET** /realms/{realmId}/metaforms/{metaformId} | Finds single Metaform
 [**listMetaforms**](MetaformsApi.md#listMetaforms) | **GET** /realms/{realmId}/metaforms | Lists Metaforms
 [**updateMetaform**](MetaformsApi.md#updateMetaform) | **PUT** /realms/{realmId}/metaforms/{metaformId} | Updates Metaform
@@ -50,6 +51,57 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**\Metatavu\Metaform\Api\Model\Metaform**](../Model/Metaform.md)
+
+### Authorization
+
+[bearer](../../README.md#bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json;charset=utf-8
+ - **Accept**: application/json;charset=utf-8
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **deleteMetaform**
+> deleteMetaform($realmId, $metaformId)
+
+Deletes Metaform
+
+Deletes a Metaform
+
+### Example
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Configure API key authorization: bearer
+Metatavu\Metaform\Configuration::getDefaultConfiguration()->setApiKey('Authorization', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// Metatavu\Metaform\Configuration::getDefaultConfiguration()->setApiKeyPrefix('Authorization', 'Bearer');
+
+$api_instance = new Metatavu\Metaform\Api\MetaformsApi(new \Http\Adapter\Guzzle6\Client());
+$realmId = "realmId_example"; // string | realm id
+$metaformId = "metaformId_example"; // string | Metaform id
+
+try {
+    $api_instance->deleteMetaform($realmId, $metaformId);
+} catch (Exception $e) {
+    echo 'Exception when calling MetaformsApi->deleteMetaform: ', $e->getMessage(), PHP_EOL;
+}
+?>
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **realmId** | **string**| realm id |
+ **metaformId** | **string**| Metaform id |
+
+### Return type
+
+void (empty response body)
 
 ### Authorization
 

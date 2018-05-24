@@ -59,7 +59,8 @@ class MetaformFieldOption implements ModelInterface, ArrayAccess
     protected static $swaggerTypes = [
         'name' => 'string',
         'text' => 'string',
-        'checked' => 'bool'
+        'checked' => 'bool',
+        'selected' => 'bool'
     ];
 
     /**
@@ -70,7 +71,8 @@ class MetaformFieldOption implements ModelInterface, ArrayAccess
     protected static $swaggerFormats = [
         'name' => null,
         'text' => null,
-        'checked' => null
+        'checked' => null,
+        'selected' => null
     ];
 
     /**
@@ -102,7 +104,8 @@ class MetaformFieldOption implements ModelInterface, ArrayAccess
     protected static $attributeMap = [
         'name' => 'name',
         'text' => 'text',
-        'checked' => 'checked'
+        'checked' => 'checked',
+        'selected' => 'selected'
     ];
 
     /**
@@ -113,7 +116,8 @@ class MetaformFieldOption implements ModelInterface, ArrayAccess
     protected static $setters = [
         'name' => 'setName',
         'text' => 'setText',
-        'checked' => 'setChecked'
+        'checked' => 'setChecked',
+        'selected' => 'setSelected'
     ];
 
     /**
@@ -124,7 +128,8 @@ class MetaformFieldOption implements ModelInterface, ArrayAccess
     protected static $getters = [
         'name' => 'getName',
         'text' => 'getText',
-        'checked' => 'getChecked'
+        'checked' => 'getChecked',
+        'selected' => 'getSelected'
     ];
 
     /**
@@ -190,6 +195,7 @@ class MetaformFieldOption implements ModelInterface, ArrayAccess
         $this->container['name'] = isset($data['name']) ? $data['name'] : null;
         $this->container['text'] = isset($data['text']) ? $data['text'] : null;
         $this->container['checked'] = isset($data['checked']) ? $data['checked'] : null;
+        $this->container['selected'] = isset($data['selected']) ? $data['selected'] : null;
     }
 
     /**
@@ -297,6 +303,30 @@ class MetaformFieldOption implements ModelInterface, ArrayAccess
     public function setChecked($checked)
     {
         $this->container['checked'] = $checked;
+
+        return $this;
+    }
+
+    /**
+     * Gets selected
+     *
+     * @return bool
+     */
+    public function getSelected()
+    {
+        return $this->container['selected'];
+    }
+
+    /**
+     * Sets selected
+     *
+     * @param bool $selected Defines whether option should be selected by default.
+     *
+     * @return $this
+     */
+    public function setSelected($selected)
+    {
+        $this->container['selected'] = $selected;
 
         return $this;
     }

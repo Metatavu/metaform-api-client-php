@@ -83,10 +83,12 @@ All URIs are relative to *https://localhost*
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *MetaformsApi* | [**createMetaform**](docs/Api/MetaformsApi.md#createmetaform) | **POST** /realms/{realmId}/metaforms | create new Metaform
+*MetaformsApi* | [**deleteMetaform**](docs/Api/MetaformsApi.md#deletemetaform) | **DELETE** /realms/{realmId}/metaforms/{metaformId} | Deletes Metaform
 *MetaformsApi* | [**findMetaform**](docs/Api/MetaformsApi.md#findmetaform) | **GET** /realms/{realmId}/metaforms/{metaformId} | Finds single Metaform
 *MetaformsApi* | [**listMetaforms**](docs/Api/MetaformsApi.md#listmetaforms) | **GET** /realms/{realmId}/metaforms | Lists Metaforms
 *MetaformsApi* | [**updateMetaform**](docs/Api/MetaformsApi.md#updatemetaform) | **PUT** /realms/{realmId}/metaforms/{metaformId} | Updates Metaform
 *RepliesApi* | [**createReply**](docs/Api/RepliesApi.md#createreply) | **POST** /realms/{realmId}/metaforms/{metaformId}/replies | create new form reply
+*RepliesApi* | [**deleteReply**](docs/Api/RepliesApi.md#deletereply) | **DELETE** /realms/{realmId}/metaforms/{metaformId}/replies/{replyId} | Deletes a reply
 *RepliesApi* | [**export**](docs/Api/RepliesApi.md#export) | **GET** /realms/{realmId}/metaforms/{metaformId}/export | Exports metaform data
 *RepliesApi* | [**findReply**](docs/Api/RepliesApi.md#findreply) | **GET** /realms/{realmId}/metaforms/{metaformId}/replies/{replyId} | Find a single reply
 *RepliesApi* | [**findReplyMeta**](docs/Api/RepliesApi.md#findreplymeta) | **GET** /realms/{realmId}/metaforms/{metaformId}/replies/{replyId}/meta | Returns reply meta

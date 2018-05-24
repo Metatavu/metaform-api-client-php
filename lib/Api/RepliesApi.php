@@ -92,11 +92,12 @@ class RepliesApi
      *
      * @throws \Metatavu\Metaform\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return void
+     * @return \Metatavu\Metaform\Api\Model\Reply
      */
     public function createReply($realmId, $metaformId, $payload, $updateExisting = null)
     {
-        $this->createReplyWithHttpInfo($realmId, $metaformId, $payload, $updateExisting);
+        list($response) = $this->createReplyWithHttpInfo($realmId, $metaformId, $payload, $updateExisting);
+        return $response;
     }
 
     /**
@@ -111,11 +112,11 @@ class RepliesApi
      *
      * @throws \Metatavu\Metaform\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Metatavu\Metaform\Api\Model\Reply, HTTP status code, HTTP response headers (array of strings)
      */
     public function createReplyWithHttpInfo($realmId, $metaformId, $payload, $updateExisting = null)
     {
-        $returnType = '';
+        $returnType = '\Metatavu\Metaform\Api\Model\Reply';
         $request = $this->createReplyRequest($realmId, $metaformId, $payload, $updateExisting);
 
         try {
@@ -145,10 +146,32 @@ class RepliesApi
                 );
             }
 
-            return [null, $statusCode, $response->getHeaders()];
+            $responseBody = $response->getBody();
+            if ($returnType === '\SplFileObject') {
+                $content = $responseBody; //stream goes to serializer
+            } else {
+                $content = $responseBody->getContents();
+                if ($returnType !== 'string') {
+                    $content = json_decode($content);
+                }
+            }
+
+            return [
+                ObjectSerializer::deserialize($content, $returnType, []),
+                $response->getStatusCode(),
+                $response->getHeaders()
+            ];
 
         } catch (ApiException $e) {
             switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Metatavu\Metaform\Api\Model\Reply',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
                 case 400:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
@@ -224,14 +247,28 @@ class RepliesApi
      */
     public function createReplyAsyncWithHttpInfo($realmId, $metaformId, $payload, $updateExisting = null)
     {
-        $returnType = '';
+        $returnType = '\Metatavu\Metaform\Api\Model\Reply';
         $request = $this->createReplyRequest($realmId, $metaformId, $payload, $updateExisting);
 
         return $this->client
             ->sendAsync($request)
             ->then(
                 function ($response) use ($returnType) {
-                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                    $responseBody = $response->getBody();
+                    if ($returnType === '\SplFileObject') {
+                        $content = $responseBody; //stream goes to serializer
+                    } else {
+                        $content = $responseBody->getContents();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
                 },
                 function ($exception) {
                     $response = $exception->getResponse();
@@ -373,6 +410,301 @@ class RepliesApi
         $query = \GuzzleHttp\Psr7\build_query($queryParams);
         return new Request(
             'POST',
+            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation deleteReply
+     *
+     * Deletes a reply
+     *
+     * @param  string $realmId realm id (required)
+     * @param  string $metaformId Metaform id (required)
+     * @param  string $replyId Reply id (required)
+     *
+     * @throws \Metatavu\Metaform\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return void
+     */
+    public function deleteReply($realmId, $metaformId, $replyId)
+    {
+        $this->deleteReplyWithHttpInfo($realmId, $metaformId, $replyId);
+    }
+
+    /**
+     * Operation deleteReplyWithHttpInfo
+     *
+     * Deletes a reply
+     *
+     * @param  string $realmId realm id (required)
+     * @param  string $metaformId Metaform id (required)
+     * @param  string $replyId Reply id (required)
+     *
+     * @throws \Metatavu\Metaform\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function deleteReplyWithHttpInfo($realmId, $metaformId, $replyId)
+    {
+        $returnType = '';
+        $request = $this->deleteReplyRequest($realmId, $metaformId, $replyId);
+
+        try {
+
+            try {
+                $response = $this->client->send($request);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    $response->getBody()
+                );
+            }
+
+            return [null, $statusCode, $response->getHeaders()];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Metatavu\Metaform\Api\Model\BadRequest',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 403:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Metatavu\Metaform\Api\Model\Forbidden',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Metatavu\Metaform\Api\Model\NotFound',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 500:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Metatavu\Metaform\Api\Model\InternalServerError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation deleteReplyAsync
+     *
+     * Deletes a reply
+     *
+     * @param  string $realmId realm id (required)
+     * @param  string $metaformId Metaform id (required)
+     * @param  string $replyId Reply id (required)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function deleteReplyAsync($realmId, $metaformId, $replyId)
+    {
+        return $this->deleteReplyAsyncWithHttpInfo($realmId, $metaformId, $replyId)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation deleteReplyAsyncWithHttpInfo
+     *
+     * Deletes a reply
+     *
+     * @param  string $realmId realm id (required)
+     * @param  string $metaformId Metaform id (required)
+     * @param  string $replyId Reply id (required)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function deleteReplyAsyncWithHttpInfo($realmId, $metaformId, $replyId)
+    {
+        $returnType = '';
+        $request = $this->deleteReplyRequest($realmId, $metaformId, $replyId);
+
+        return $this->client
+            ->sendAsync($request)
+            ->then(
+                function ($response) use ($returnType) {
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'deleteReply'
+     *
+     * @param  string $realmId realm id (required)
+     * @param  string $metaformId Metaform id (required)
+     * @param  string $replyId Reply id (required)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    protected function deleteReplyRequest($realmId, $metaformId, $replyId)
+    {
+        // verify the required parameter 'realmId' is set
+        if ($realmId === null) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $realmId when calling deleteReply'
+            );
+        }
+        // verify the required parameter 'metaformId' is set
+        if ($metaformId === null) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $metaformId when calling deleteReply'
+            );
+        }
+        // verify the required parameter 'replyId' is set
+        if ($replyId === null) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $replyId when calling deleteReply'
+            );
+        }
+
+        $resourcePath = '/realms/{realmId}/metaforms/{metaformId}/replies/{replyId}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+        // path params
+        if ($realmId !== null) {
+            $resourcePath = str_replace(
+                '{' . 'realmId' . '}',
+                ObjectSerializer::toPathValue($realmId),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($metaformId !== null) {
+            $resourcePath = str_replace(
+                '{' . 'metaformId' . '}',
+                ObjectSerializer::toPathValue($metaformId),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($replyId !== null) {
+            $resourcePath = str_replace(
+                '{' . 'replyId' . '}',
+                ObjectSerializer::toPathValue($replyId),
+                $resourcePath
+            );
+        }
+
+        // body params
+        $_tempBody = null;
+
+        if ($multipart) {
+            $headers= $this->headerSelector->selectHeadersForMultipart(
+                ['application/json;charset=utf-8']
+            );
+        } else {
+            $headers = $this->headerSelector->selectHeaders(
+                ['application/json;charset=utf-8'],
+                ['application/json;charset=utf-8']
+            );
+        }
+
+        // for model (json/xml)
+        if (isset($_tempBody)) {
+            $httpBody = $_tempBody; // $_tempBody is the method argument, if present
+
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $multipartContents[] = [
+                        'name' => $formParamName,
+                        'contents' => $formParamValue
+                    ];
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif ($headers['Content-Type'] === 'application/json') {
+                $httpBody = \GuzzleHttp\json_encode($formParams);
+
+            } else {
+                // for HTTP post (form)
+                $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
+            }
+        }
+
+        // this endpoint requires API key authentication
+        $apiKey = $this->config->getApiKeyWithPrefix('Authorization');
+        if ($apiKey !== null) {
+            $headers['Authorization'] = $apiKey;
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $query = \GuzzleHttp\Psr7\build_query($queryParams);
+        return new Request(
+            'DELETE',
             $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
             $headers,
             $httpBody
@@ -1379,14 +1711,19 @@ class RepliesApi
      * @param  string $realmId realm id (required)
      * @param  string $metaformId Metaform id (required)
      * @param  string $userId Filter results by user id. If this parameter is not specified all replies are returned, this requires logged user to have proper permission to do so (optional)
+     * @param  string $createdBefore Filter results created before specified time (optional)
+     * @param  string $createdAfter Filter results created after specified time (optional)
+     * @param  string $modifiedBefore Filter results modified before specified time (optional)
+     * @param  string $modifiedAfter Filter results modified after specified time (optional)
+     * @param  bool $includeRevisions Specifies that revisions should be included into response (optional)
      *
      * @throws \Metatavu\Metaform\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \Metatavu\Metaform\Api\Model\Reply[]
      */
-    public function listReplies($realmId, $metaformId, $userId = null)
+    public function listReplies($realmId, $metaformId, $userId = null, $createdBefore = null, $createdAfter = null, $modifiedBefore = null, $modifiedAfter = null, $includeRevisions = null)
     {
-        list($response) = $this->listRepliesWithHttpInfo($realmId, $metaformId, $userId);
+        list($response) = $this->listRepliesWithHttpInfo($realmId, $metaformId, $userId, $createdBefore, $createdAfter, $modifiedBefore, $modifiedAfter, $includeRevisions);
         return $response;
     }
 
@@ -1398,15 +1735,20 @@ class RepliesApi
      * @param  string $realmId realm id (required)
      * @param  string $metaformId Metaform id (required)
      * @param  string $userId Filter results by user id. If this parameter is not specified all replies are returned, this requires logged user to have proper permission to do so (optional)
+     * @param  string $createdBefore Filter results created before specified time (optional)
+     * @param  string $createdAfter Filter results created after specified time (optional)
+     * @param  string $modifiedBefore Filter results modified before specified time (optional)
+     * @param  string $modifiedAfter Filter results modified after specified time (optional)
+     * @param  bool $includeRevisions Specifies that revisions should be included into response (optional)
      *
      * @throws \Metatavu\Metaform\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \Metatavu\Metaform\Api\Model\Reply[], HTTP status code, HTTP response headers (array of strings)
      */
-    public function listRepliesWithHttpInfo($realmId, $metaformId, $userId = null)
+    public function listRepliesWithHttpInfo($realmId, $metaformId, $userId = null, $createdBefore = null, $createdAfter = null, $modifiedBefore = null, $modifiedAfter = null, $includeRevisions = null)
     {
         $returnType = '\Metatavu\Metaform\Api\Model\Reply[]';
-        $request = $this->listRepliesRequest($realmId, $metaformId, $userId);
+        $request = $this->listRepliesRequest($realmId, $metaformId, $userId, $createdBefore, $createdAfter, $modifiedBefore, $modifiedAfter, $includeRevisions);
 
         try {
 
@@ -1506,13 +1848,18 @@ class RepliesApi
      * @param  string $realmId realm id (required)
      * @param  string $metaformId Metaform id (required)
      * @param  string $userId Filter results by user id. If this parameter is not specified all replies are returned, this requires logged user to have proper permission to do so (optional)
+     * @param  string $createdBefore Filter results created before specified time (optional)
+     * @param  string $createdAfter Filter results created after specified time (optional)
+     * @param  string $modifiedBefore Filter results modified before specified time (optional)
+     * @param  string $modifiedAfter Filter results modified after specified time (optional)
+     * @param  bool $includeRevisions Specifies that revisions should be included into response (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function listRepliesAsync($realmId, $metaformId, $userId = null)
+    public function listRepliesAsync($realmId, $metaformId, $userId = null, $createdBefore = null, $createdAfter = null, $modifiedBefore = null, $modifiedAfter = null, $includeRevisions = null)
     {
-        return $this->listRepliesAsyncWithHttpInfo($realmId, $metaformId, $userId)
+        return $this->listRepliesAsyncWithHttpInfo($realmId, $metaformId, $userId, $createdBefore, $createdAfter, $modifiedBefore, $modifiedAfter, $includeRevisions)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1528,14 +1875,19 @@ class RepliesApi
      * @param  string $realmId realm id (required)
      * @param  string $metaformId Metaform id (required)
      * @param  string $userId Filter results by user id. If this parameter is not specified all replies are returned, this requires logged user to have proper permission to do so (optional)
+     * @param  string $createdBefore Filter results created before specified time (optional)
+     * @param  string $createdAfter Filter results created after specified time (optional)
+     * @param  string $modifiedBefore Filter results modified before specified time (optional)
+     * @param  string $modifiedAfter Filter results modified after specified time (optional)
+     * @param  bool $includeRevisions Specifies that revisions should be included into response (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function listRepliesAsyncWithHttpInfo($realmId, $metaformId, $userId = null)
+    public function listRepliesAsyncWithHttpInfo($realmId, $metaformId, $userId = null, $createdBefore = null, $createdAfter = null, $modifiedBefore = null, $modifiedAfter = null, $includeRevisions = null)
     {
         $returnType = '\Metatavu\Metaform\Api\Model\Reply[]';
-        $request = $this->listRepliesRequest($realmId, $metaformId, $userId);
+        $request = $this->listRepliesRequest($realmId, $metaformId, $userId, $createdBefore, $createdAfter, $modifiedBefore, $modifiedAfter, $includeRevisions);
 
         return $this->client
             ->sendAsync($request)
@@ -1580,11 +1932,16 @@ class RepliesApi
      * @param  string $realmId realm id (required)
      * @param  string $metaformId Metaform id (required)
      * @param  string $userId Filter results by user id. If this parameter is not specified all replies are returned, this requires logged user to have proper permission to do so (optional)
+     * @param  string $createdBefore Filter results created before specified time (optional)
+     * @param  string $createdAfter Filter results created after specified time (optional)
+     * @param  string $modifiedBefore Filter results modified before specified time (optional)
+     * @param  string $modifiedAfter Filter results modified after specified time (optional)
+     * @param  bool $includeRevisions Specifies that revisions should be included into response (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function listRepliesRequest($realmId, $metaformId, $userId = null)
+    protected function listRepliesRequest($realmId, $metaformId, $userId = null, $createdBefore = null, $createdAfter = null, $modifiedBefore = null, $modifiedAfter = null, $includeRevisions = null)
     {
         // verify the required parameter 'realmId' is set
         if ($realmId === null) {
@@ -1609,6 +1966,26 @@ class RepliesApi
         // query params
         if ($userId !== null) {
             $queryParams['userId'] = ObjectSerializer::toQueryValue($userId);
+        }
+        // query params
+        if ($createdBefore !== null) {
+            $queryParams['createdBefore'] = ObjectSerializer::toQueryValue($createdBefore);
+        }
+        // query params
+        if ($createdAfter !== null) {
+            $queryParams['createdAfter'] = ObjectSerializer::toQueryValue($createdAfter);
+        }
+        // query params
+        if ($modifiedBefore !== null) {
+            $queryParams['modifiedBefore'] = ObjectSerializer::toQueryValue($modifiedBefore);
+        }
+        // query params
+        if ($modifiedAfter !== null) {
+            $queryParams['modifiedAfter'] = ObjectSerializer::toQueryValue($modifiedAfter);
+        }
+        // query params
+        if ($includeRevisions !== null) {
+            $queryParams['includeRevisions'] = ObjectSerializer::toQueryValue($includeRevisions);
         }
 
         // path params
