@@ -61,7 +61,7 @@ class MetaformField implements ModelInterface, ArrayAccess
         'type' => '\Metatavu\Metaform\Api\Model\MetaformFieldType',
         'title' => 'string',
         'required' => 'bool',
-        'contexts' => 'string',
+        'contexts' => 'string[]',
         'placeholder' => 'string',
         'class' => 'string',
         'readonly' => 'bool',
@@ -489,7 +489,7 @@ class MetaformField implements ModelInterface, ArrayAccess
     /**
      * Gets contexts
      *
-     * @return string
+     * @return string[]
      */
     public function getContexts()
     {
@@ -499,7 +499,7 @@ class MetaformField implements ModelInterface, ArrayAccess
     /**
      * Sets contexts
      *
-     * @param string $contexts
+     * @param string[] $contexts
      *
      * @return $this
      */
