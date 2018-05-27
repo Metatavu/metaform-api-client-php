@@ -101,6 +101,7 @@ Class | Method | HTTP request | Description
  - [BadRequest](docs/Model/BadRequest.md)
  - [Forbidden](docs/Model/Forbidden.md)
  - [InternalServerError](docs/Model/InternalServerError.md)
+ - [Metafield](docs/Model/Metafield.md)
  - [Metaform](docs/Model/Metaform.md)
  - [MetaformField](docs/Model/MetaformField.md)
  - [MetaformFieldOption](docs/Model/MetaformFieldOption.md)

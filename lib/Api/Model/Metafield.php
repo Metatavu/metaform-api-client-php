@@ -1,6 +1,6 @@
 <?php
 /**
- * Metaform
+ * Metafield
  *
  * PHP version 5
  *
@@ -32,14 +32,14 @@ use \ArrayAccess;
 use \Metatavu\Metaform\ObjectSerializer;
 
 /**
- * Metaform Class Doc Comment
+ * Metafield Class Doc Comment
  *
  * @category Class
  * @package  Metatavu\Metaform
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
-class Metaform implements ModelInterface, ArrayAccess
+class Metafield implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -48,7 +48,7 @@ class Metaform implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'Metaform';
+    protected static $swaggerModelName = 'Metafield';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -56,12 +56,11 @@ class Metaform implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'id' => 'string',
-        'metafields' => '\Metatavu\Metaform\Api\Model\Metafield[]',
-        'replyStrategy' => 'string',
-        'allowAnonymous' => 'bool',
         'title' => 'string',
-        'sections' => '\Metatavu\Metaform\Api\Model\MetaformSection[]'
+        'name' => 'string',
+        'type' => '\Metatavu\Metaform\Api\Model\MetaformFieldType',
+        'time' => 'bool',
+        'contexts' => 'string[]'
     ];
 
     /**
@@ -70,12 +69,11 @@ class Metaform implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'id' => 'uuid',
-        'metafields' => null,
-        'replyStrategy' => null,
-        'allowAnonymous' => null,
         'title' => null,
-        'sections' => null
+        'name' => null,
+        'type' => null,
+        'time' => null,
+        'contexts' => null
     ];
 
     /**
@@ -105,12 +103,11 @@ class Metaform implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'id' => 'id',
-        'metafields' => 'metafields',
-        'replyStrategy' => 'replyStrategy',
-        'allowAnonymous' => 'allowAnonymous',
         'title' => 'title',
-        'sections' => 'sections'
+        'name' => 'name',
+        'type' => 'type',
+        'time' => 'time',
+        'contexts' => 'contexts'
     ];
 
     /**
@@ -119,12 +116,11 @@ class Metaform implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'id' => 'setId',
-        'metafields' => 'setMetafields',
-        'replyStrategy' => 'setReplyStrategy',
-        'allowAnonymous' => 'setAllowAnonymous',
         'title' => 'setTitle',
-        'sections' => 'setSections'
+        'name' => 'setName',
+        'type' => 'setType',
+        'time' => 'setTime',
+        'contexts' => 'setContexts'
     ];
 
     /**
@@ -133,12 +129,11 @@ class Metaform implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'id' => 'getId',
-        'metafields' => 'getMetafields',
-        'replyStrategy' => 'getReplyStrategy',
-        'allowAnonymous' => 'getAllowAnonymous',
         'title' => 'getTitle',
-        'sections' => 'getSections'
+        'name' => 'getName',
+        'type' => 'getType',
+        'time' => 'getTime',
+        'contexts' => 'getContexts'
     ];
 
     /**
@@ -182,23 +177,8 @@ class Metaform implements ModelInterface, ArrayAccess
         return self::$swaggerModelName;
     }
 
-    const REPLY_STRATEGY__PUBLIC = 'PUBLIC';
-    const REPLY_STRATEGY__PRIVATE = 'PRIVATE';
     
 
-    
-    /**
-     * Gets allowable values of the enum
-     *
-     * @return string[]
-     */
-    public function getReplyStrategyAllowableValues()
-    {
-        return [
-            self::REPLY_STRATEGY__PUBLIC,
-            self::REPLY_STRATEGY__PRIVATE,
-        ];
-    }
     
 
     /**
@@ -216,12 +196,11 @@ class Metaform implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['id'] = isset($data['id']) ? $data['id'] : null;
-        $this->container['metafields'] = isset($data['metafields']) ? $data['metafields'] : null;
-        $this->container['replyStrategy'] = isset($data['replyStrategy']) ? $data['replyStrategy'] : null;
-        $this->container['allowAnonymous'] = isset($data['allowAnonymous']) ? $data['allowAnonymous'] : null;
         $this->container['title'] = isset($data['title']) ? $data['title'] : null;
-        $this->container['sections'] = isset($data['sections']) ? $data['sections'] : null;
+        $this->container['name'] = isset($data['name']) ? $data['name'] : null;
+        $this->container['type'] = isset($data['type']) ? $data['type'] : null;
+        $this->container['time'] = isset($data['time']) ? $data['time'] : null;
+        $this->container['contexts'] = isset($data['contexts']) ? $data['contexts'] : null;
     }
 
     /**
@@ -233,14 +212,12 @@ class Metaform implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
-        $allowedValues = $this->getReplyStrategyAllowableValues();
-        if (!in_array($this->container['replyStrategy'], $allowedValues)) {
-            $invalidProperties[] = sprintf(
-                "invalid value for 'replyStrategy', must be one of '%s'",
-                implode("', '", $allowedValues)
-            );
+        if ($this->container['name'] === null) {
+            $invalidProperties[] = "'name' can't be null";
         }
-
+        if ($this->container['type'] === null) {
+            $invalidProperties[] = "'type' can't be null";
+        }
         return $invalidProperties;
     }
 
@@ -253,118 +230,15 @@ class Metaform implements ModelInterface, ArrayAccess
     public function valid()
     {
 
-        $allowedValues = $this->getReplyStrategyAllowableValues();
-        if (!in_array($this->container['replyStrategy'], $allowedValues)) {
+        if ($this->container['name'] === null) {
+            return false;
+        }
+        if ($this->container['type'] === null) {
             return false;
         }
         return true;
     }
 
-
-    /**
-     * Gets id
-     *
-     * @return string
-     */
-    public function getId()
-    {
-        return $this->container['id'];
-    }
-
-    /**
-     * Sets id
-     *
-     * @param string $id
-     *
-     * @return $this
-     */
-    public function setId($id)
-    {
-        $this->container['id'] = $id;
-
-        return $this;
-    }
-
-    /**
-     * Gets metafields
-     *
-     * @return \Metatavu\Metaform\Api\Model\Metafield[]
-     */
-    public function getMetafields()
-    {
-        return $this->container['metafields'];
-    }
-
-    /**
-     * Sets metafields
-     *
-     * @param \Metatavu\Metaform\Api\Model\Metafield[] $metafields
-     *
-     * @return $this
-     */
-    public function setMetafields($metafields)
-    {
-        $this->container['metafields'] = $metafields;
-
-        return $this;
-    }
-
-    /**
-     * Gets replyStrategy
-     *
-     * @return string
-     */
-    public function getReplyStrategy()
-    {
-        return $this->container['replyStrategy'];
-    }
-
-    /**
-     * Sets replyStrategy
-     *
-     * @param string $replyStrategy
-     *
-     * @return $this
-     */
-    public function setReplyStrategy($replyStrategy)
-    {
-        $allowedValues = $this->getReplyStrategyAllowableValues();
-        if (!is_null($replyStrategy) && !in_array($replyStrategy, $allowedValues)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value for 'replyStrategy', must be one of '%s'",
-                    implode("', '", $allowedValues)
-                )
-            );
-        }
-        $this->container['replyStrategy'] = $replyStrategy;
-
-        return $this;
-    }
-
-    /**
-     * Gets allowAnonymous
-     *
-     * @return bool
-     */
-    public function getAllowAnonymous()
-    {
-        return $this->container['allowAnonymous'];
-    }
-
-    /**
-     * Sets allowAnonymous
-     *
-     * @param bool $allowAnonymous Are anonymous replies allowed or not
-     *
-     * @return $this
-     */
-    public function setAllowAnonymous($allowAnonymous)
-    {
-        $this->container['allowAnonymous'] = $allowAnonymous;
-
-        return $this;
-    }
 
     /**
      * Gets title
@@ -391,25 +265,97 @@ class Metaform implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets sections
+     * Gets name
      *
-     * @return \Metatavu\Metaform\Api\Model\MetaformSection[]
+     * @return string
      */
-    public function getSections()
+    public function getName()
     {
-        return $this->container['sections'];
+        return $this->container['name'];
     }
 
     /**
-     * Sets sections
+     * Sets name
      *
-     * @param \Metatavu\Metaform\Api\Model\MetaformSection[] $sections
+     * @param string $name Field name
      *
      * @return $this
      */
-    public function setSections($sections)
+    public function setName($name)
     {
-        $this->container['sections'] = $sections;
+        $this->container['name'] = $name;
+
+        return $this;
+    }
+
+    /**
+     * Gets type
+     *
+     * @return \Metatavu\Metaform\Api\Model\MetaformFieldType
+     */
+    public function getType()
+    {
+        return $this->container['type'];
+    }
+
+    /**
+     * Sets type
+     *
+     * @param \Metatavu\Metaform\Api\Model\MetaformFieldType $type
+     *
+     * @return $this
+     */
+    public function setType($type)
+    {
+        $this->container['type'] = $type;
+
+        return $this;
+    }
+
+    /**
+     * Gets time
+     *
+     * @return bool
+     */
+    public function getTime()
+    {
+        return $this->container['time'];
+    }
+
+    /**
+     * Sets time
+     *
+     * @param bool $time
+     *
+     * @return $this
+     */
+    public function setTime($time)
+    {
+        $this->container['time'] = $time;
+
+        return $this;
+    }
+
+    /**
+     * Gets contexts
+     *
+     * @return string[]
+     */
+    public function getContexts()
+    {
+        return $this->container['contexts'];
+    }
+
+    /**
+     * Sets contexts
+     *
+     * @param string[] $contexts
+     *
+     * @return $this
+     */
+    public function setContexts($contexts)
+    {
+        $this->container['contexts'] = $contexts;
 
         return $this;
     }
