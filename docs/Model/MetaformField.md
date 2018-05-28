@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **title** | **string** |  | [optional] 
 **required** | **bool** |  | [optional] 
 **contexts** | **string[]** |  | [optional] 
+**flags** | [**\Metatavu\Metaform\Api\Model\MetaformFieldFlags**](MetaformFieldFlags.md) |  | [optional] 
 **placeholder** | **string** |  | [optional] 
 **class** | **string** |  | [optional] 
 **readonly** | **bool** |  | [optional] 

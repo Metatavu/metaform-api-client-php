@@ -4,7 +4,6 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **string** |  | [optional] 
-**metafields** | [**\Metatavu\Metaform\Api\Model\Metafield[]**](Metafield.md) |  | [optional] 
 **replyStrategy** | **string** |  | [optional] 
 **allowAnonymous** | **bool** | Are anonymous replies allowed or not | [optional] 
 **title** | **string** |  | [optional] 

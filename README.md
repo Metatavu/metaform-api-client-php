@@ -91,7 +91,6 @@ Class | Method | HTTP request | Description
 *RepliesApi* | [**deleteReply**](docs/Api/RepliesApi.md#deletereply) | **DELETE** /realms/{realmId}/metaforms/{metaformId}/replies/{replyId} | Deletes a reply
 *RepliesApi* | [**export**](docs/Api/RepliesApi.md#export) | **GET** /realms/{realmId}/metaforms/{metaformId}/export | Exports metaform data
 *RepliesApi* | [**findReply**](docs/Api/RepliesApi.md#findreply) | **GET** /realms/{realmId}/metaforms/{metaformId}/replies/{replyId} | Find a single reply
-*RepliesApi* | [**findReplyMeta**](docs/Api/RepliesApi.md#findreplymeta) | **GET** /realms/{realmId}/metaforms/{metaformId}/replies/{replyId}/meta | Returns reply meta
 *RepliesApi* | [**listReplies**](docs/Api/RepliesApi.md#listreplies) | **GET** /realms/{realmId}/metaforms/{metaformId}/replies | Lists form replies
 *RepliesApi* | [**updateReply**](docs/Api/RepliesApi.md#updatereply) | **PUT** /realms/{realmId}/metaforms/{metaformId}/replies/{replyId} | Updates reply
 
@@ -101,9 +100,9 @@ Class | Method | HTTP request | Description
  - [BadRequest](docs/Model/BadRequest.md)
  - [Forbidden](docs/Model/Forbidden.md)
  - [InternalServerError](docs/Model/InternalServerError.md)
- - [Metafield](docs/Model/Metafield.md)
  - [Metaform](docs/Model/Metaform.md)
  - [MetaformField](docs/Model/MetaformField.md)
+ - [MetaformFieldFlags](docs/Model/MetaformFieldFlags.md)
  - [MetaformFieldOption](docs/Model/MetaformFieldOption.md)
  - [MetaformFieldType](docs/Model/MetaformFieldType.md)
  - [MetaformSection](docs/Model/MetaformSection.md)
@@ -115,7 +114,6 @@ Class | Method | HTTP request | Description
  - [NotImplemented](docs/Model/NotImplemented.md)
  - [Reply](docs/Model/Reply.md)
  - [ReplyData](docs/Model/ReplyData.md)
- - [ReplyMeta](docs/Model/ReplyMeta.md)
 
 
 ## Documentation For Authorization

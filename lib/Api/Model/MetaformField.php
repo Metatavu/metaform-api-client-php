@@ -62,6 +62,7 @@ class MetaformField implements ModelInterface, ArrayAccess
         'title' => 'string',
         'required' => 'bool',
         'contexts' => 'string[]',
+        'flags' => '\Metatavu\Metaform\Api\Model\MetaformFieldFlags',
         'placeholder' => 'string',
         'class' => 'string',
         'readonly' => 'bool',
@@ -97,6 +98,7 @@ class MetaformField implements ModelInterface, ArrayAccess
         'title' => null,
         'required' => null,
         'contexts' => null,
+        'flags' => null,
         'placeholder' => null,
         'class' => null,
         'readonly' => null,
@@ -153,6 +155,7 @@ class MetaformField implements ModelInterface, ArrayAccess
         'title' => 'title',
         'required' => 'required',
         'contexts' => 'contexts',
+        'flags' => 'flags',
         'placeholder' => 'placeholder',
         'class' => 'class',
         'readonly' => 'readonly',
@@ -188,6 +191,7 @@ class MetaformField implements ModelInterface, ArrayAccess
         'title' => 'setTitle',
         'required' => 'setRequired',
         'contexts' => 'setContexts',
+        'flags' => 'setFlags',
         'placeholder' => 'setPlaceholder',
         'class' => 'setClass',
         'readonly' => 'setReadonly',
@@ -223,6 +227,7 @@ class MetaformField implements ModelInterface, ArrayAccess
         'title' => 'getTitle',
         'required' => 'getRequired',
         'contexts' => 'getContexts',
+        'flags' => 'getFlags',
         'placeholder' => 'getPlaceholder',
         'class' => 'getClass',
         'readonly' => 'getReadonly',
@@ -312,6 +317,7 @@ class MetaformField implements ModelInterface, ArrayAccess
         $this->container['title'] = isset($data['title']) ? $data['title'] : null;
         $this->container['required'] = isset($data['required']) ? $data['required'] : null;
         $this->container['contexts'] = isset($data['contexts']) ? $data['contexts'] : null;
+        $this->container['flags'] = isset($data['flags']) ? $data['flags'] : null;
         $this->container['placeholder'] = isset($data['placeholder']) ? $data['placeholder'] : null;
         $this->container['class'] = isset($data['class']) ? $data['class'] : null;
         $this->container['readonly'] = isset($data['readonly']) ? $data['readonly'] : null;
@@ -506,6 +512,30 @@ class MetaformField implements ModelInterface, ArrayAccess
     public function setContexts($contexts)
     {
         $this->container['contexts'] = $contexts;
+
+        return $this;
+    }
+
+    /**
+     * Gets flags
+     *
+     * @return \Metatavu\Metaform\Api\Model\MetaformFieldFlags
+     */
+    public function getFlags()
+    {
+        return $this->container['flags'];
+    }
+
+    /**
+     * Sets flags
+     *
+     * @param \Metatavu\Metaform\Api\Model\MetaformFieldFlags $flags
+     *
+     * @return $this
+     */
+    public function setFlags($flags)
+    {
+        $this->container['flags'] = $flags;
 
         return $this;
     }

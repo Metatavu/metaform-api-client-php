@@ -1,6 +1,6 @@
 <?php
 /**
- * Metaform
+ * MetaformFieldFlags
  *
  * PHP version 5
  *
@@ -32,14 +32,14 @@ use \ArrayAccess;
 use \Metatavu\Metaform\ObjectSerializer;
 
 /**
- * Metaform Class Doc Comment
+ * MetaformFieldFlags Class Doc Comment
  *
  * @category Class
  * @package  Metatavu\Metaform
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
-class Metaform implements ModelInterface, ArrayAccess
+class MetaformFieldFlags implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -48,7 +48,7 @@ class Metaform implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'Metaform';
+    protected static $swaggerModelName = 'MetaformFieldFlags';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -56,11 +56,7 @@ class Metaform implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'id' => 'string',
-        'replyStrategy' => 'string',
-        'allowAnonymous' => 'bool',
-        'title' => 'string',
-        'sections' => '\Metatavu\Metaform\Api\Model\MetaformSection[]'
+        'managementEditable' => 'bool'
     ];
 
     /**
@@ -69,11 +65,7 @@ class Metaform implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'id' => 'uuid',
-        'replyStrategy' => null,
-        'allowAnonymous' => null,
-        'title' => null,
-        'sections' => null
+        'managementEditable' => null
     ];
 
     /**
@@ -103,11 +95,7 @@ class Metaform implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'id' => 'id',
-        'replyStrategy' => 'replyStrategy',
-        'allowAnonymous' => 'allowAnonymous',
-        'title' => 'title',
-        'sections' => 'sections'
+        'managementEditable' => 'managementEditable'
     ];
 
     /**
@@ -116,11 +104,7 @@ class Metaform implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'id' => 'setId',
-        'replyStrategy' => 'setReplyStrategy',
-        'allowAnonymous' => 'setAllowAnonymous',
-        'title' => 'setTitle',
-        'sections' => 'setSections'
+        'managementEditable' => 'setManagementEditable'
     ];
 
     /**
@@ -129,11 +113,7 @@ class Metaform implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'id' => 'getId',
-        'replyStrategy' => 'getReplyStrategy',
-        'allowAnonymous' => 'getAllowAnonymous',
-        'title' => 'getTitle',
-        'sections' => 'getSections'
+        'managementEditable' => 'getManagementEditable'
     ];
 
     /**
@@ -177,23 +157,8 @@ class Metaform implements ModelInterface, ArrayAccess
         return self::$swaggerModelName;
     }
 
-    const REPLY_STRATEGY__PUBLIC = 'PUBLIC';
-    const REPLY_STRATEGY__PRIVATE = 'PRIVATE';
     
 
-    
-    /**
-     * Gets allowable values of the enum
-     *
-     * @return string[]
-     */
-    public function getReplyStrategyAllowableValues()
-    {
-        return [
-            self::REPLY_STRATEGY__PUBLIC,
-            self::REPLY_STRATEGY__PRIVATE,
-        ];
-    }
     
 
     /**
@@ -211,11 +176,7 @@ class Metaform implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['id'] = isset($data['id']) ? $data['id'] : null;
-        $this->container['replyStrategy'] = isset($data['replyStrategy']) ? $data['replyStrategy'] : null;
-        $this->container['allowAnonymous'] = isset($data['allowAnonymous']) ? $data['allowAnonymous'] : null;
-        $this->container['title'] = isset($data['title']) ? $data['title'] : null;
-        $this->container['sections'] = isset($data['sections']) ? $data['sections'] : null;
+        $this->container['managementEditable'] = isset($data['managementEditable']) ? $data['managementEditable'] : false;
     }
 
     /**
@@ -226,14 +187,6 @@ class Metaform implements ModelInterface, ArrayAccess
     public function listInvalidProperties()
     {
         $invalidProperties = [];
-
-        $allowedValues = $this->getReplyStrategyAllowableValues();
-        if (!in_array($this->container['replyStrategy'], $allowedValues)) {
-            $invalidProperties[] = sprintf(
-                "invalid value for 'replyStrategy', must be one of '%s'",
-                implode("', '", $allowedValues)
-            );
-        }
 
         return $invalidProperties;
     }
@@ -247,139 +200,30 @@ class Metaform implements ModelInterface, ArrayAccess
     public function valid()
     {
 
-        $allowedValues = $this->getReplyStrategyAllowableValues();
-        if (!in_array($this->container['replyStrategy'], $allowedValues)) {
-            return false;
-        }
         return true;
     }
 
 
     /**
-     * Gets id
-     *
-     * @return string
-     */
-    public function getId()
-    {
-        return $this->container['id'];
-    }
-
-    /**
-     * Sets id
-     *
-     * @param string $id
-     *
-     * @return $this
-     */
-    public function setId($id)
-    {
-        $this->container['id'] = $id;
-
-        return $this;
-    }
-
-    /**
-     * Gets replyStrategy
-     *
-     * @return string
-     */
-    public function getReplyStrategy()
-    {
-        return $this->container['replyStrategy'];
-    }
-
-    /**
-     * Sets replyStrategy
-     *
-     * @param string $replyStrategy
-     *
-     * @return $this
-     */
-    public function setReplyStrategy($replyStrategy)
-    {
-        $allowedValues = $this->getReplyStrategyAllowableValues();
-        if (!is_null($replyStrategy) && !in_array($replyStrategy, $allowedValues)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value for 'replyStrategy', must be one of '%s'",
-                    implode("', '", $allowedValues)
-                )
-            );
-        }
-        $this->container['replyStrategy'] = $replyStrategy;
-
-        return $this;
-    }
-
-    /**
-     * Gets allowAnonymous
+     * Gets managementEditable
      *
      * @return bool
      */
-    public function getAllowAnonymous()
+    public function getManagementEditable()
     {
-        return $this->container['allowAnonymous'];
+        return $this->container['managementEditable'];
     }
 
     /**
-     * Sets allowAnonymous
+     * Sets managementEditable
      *
-     * @param bool $allowAnonymous Are anonymous replies allowed or not
+     * @param bool $managementEditable Field should be editable in management service
      *
      * @return $this
      */
-    public function setAllowAnonymous($allowAnonymous)
+    public function setManagementEditable($managementEditable)
     {
-        $this->container['allowAnonymous'] = $allowAnonymous;
-
-        return $this;
-    }
-
-    /**
-     * Gets title
-     *
-     * @return string
-     */
-    public function getTitle()
-    {
-        return $this->container['title'];
-    }
-
-    /**
-     * Sets title
-     *
-     * @param string $title
-     *
-     * @return $this
-     */
-    public function setTitle($title)
-    {
-        $this->container['title'] = $title;
-
-        return $this;
-    }
-
-    /**
-     * Gets sections
-     *
-     * @return \Metatavu\Metaform\Api\Model\MetaformSection[]
-     */
-    public function getSections()
-    {
-        return $this->container['sections'];
-    }
-
-    /**
-     * Sets sections
-     *
-     * @param \Metatavu\Metaform\Api\Model\MetaformSection[] $sections
-     *
-     * @return $this
-     */
-    public function setSections($sections)
-    {
-        $this->container['sections'] = $sections;
+        $this->container['managementEditable'] = $managementEditable;
 
         return $this;
     }
