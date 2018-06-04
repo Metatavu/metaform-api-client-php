@@ -88,15 +88,16 @@ class RepliesApi
      * @param  string $realmId realm id (required)
      * @param  string $metaformId Metaform id (required)
      * @param  \Metatavu\Metaform\Api\Model\Reply $payload Payload (required)
-     * @param  bool $updateExisting specifies that existing reply should be updated (optional)
+     * @param  bool $updateExisting specifies that existing reply should be updated. DEPRECATED, use replymode instead (optional)
+     * @param  string $replyMode specifies reply mode that will be used. possible values UPDATE, REVISION, CUMULATIVE (optional)
      *
      * @throws \Metatavu\Metaform\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \Metatavu\Metaform\Api\Model\Reply
      */
-    public function createReply($realmId, $metaformId, $payload, $updateExisting = null)
+    public function createReply($realmId, $metaformId, $payload, $updateExisting = null, $replyMode = null)
     {
-        list($response) = $this->createReplyWithHttpInfo($realmId, $metaformId, $payload, $updateExisting);
+        list($response) = $this->createReplyWithHttpInfo($realmId, $metaformId, $payload, $updateExisting, $replyMode);
         return $response;
     }
 
@@ -108,16 +109,17 @@ class RepliesApi
      * @param  string $realmId realm id (required)
      * @param  string $metaformId Metaform id (required)
      * @param  \Metatavu\Metaform\Api\Model\Reply $payload Payload (required)
-     * @param  bool $updateExisting specifies that existing reply should be updated (optional)
+     * @param  bool $updateExisting specifies that existing reply should be updated. DEPRECATED, use replymode instead (optional)
+     * @param  string $replyMode specifies reply mode that will be used. possible values UPDATE, REVISION, CUMULATIVE (optional)
      *
      * @throws \Metatavu\Metaform\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \Metatavu\Metaform\Api\Model\Reply, HTTP status code, HTTP response headers (array of strings)
      */
-    public function createReplyWithHttpInfo($realmId, $metaformId, $payload, $updateExisting = null)
+    public function createReplyWithHttpInfo($realmId, $metaformId, $payload, $updateExisting = null, $replyMode = null)
     {
         $returnType = '\Metatavu\Metaform\Api\Model\Reply';
-        $request = $this->createReplyRequest($realmId, $metaformId, $payload, $updateExisting);
+        $request = $this->createReplyRequest($realmId, $metaformId, $payload, $updateExisting, $replyMode);
 
         try {
 
@@ -217,14 +219,15 @@ class RepliesApi
      * @param  string $realmId realm id (required)
      * @param  string $metaformId Metaform id (required)
      * @param  \Metatavu\Metaform\Api\Model\Reply $payload Payload (required)
-     * @param  bool $updateExisting specifies that existing reply should be updated (optional)
+     * @param  bool $updateExisting specifies that existing reply should be updated. DEPRECATED, use replymode instead (optional)
+     * @param  string $replyMode specifies reply mode that will be used. possible values UPDATE, REVISION, CUMULATIVE (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function createReplyAsync($realmId, $metaformId, $payload, $updateExisting = null)
+    public function createReplyAsync($realmId, $metaformId, $payload, $updateExisting = null, $replyMode = null)
     {
-        return $this->createReplyAsyncWithHttpInfo($realmId, $metaformId, $payload, $updateExisting)
+        return $this->createReplyAsyncWithHttpInfo($realmId, $metaformId, $payload, $updateExisting, $replyMode)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -240,15 +243,16 @@ class RepliesApi
      * @param  string $realmId realm id (required)
      * @param  string $metaformId Metaform id (required)
      * @param  \Metatavu\Metaform\Api\Model\Reply $payload Payload (required)
-     * @param  bool $updateExisting specifies that existing reply should be updated (optional)
+     * @param  bool $updateExisting specifies that existing reply should be updated. DEPRECATED, use replymode instead (optional)
+     * @param  string $replyMode specifies reply mode that will be used. possible values UPDATE, REVISION, CUMULATIVE (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function createReplyAsyncWithHttpInfo($realmId, $metaformId, $payload, $updateExisting = null)
+    public function createReplyAsyncWithHttpInfo($realmId, $metaformId, $payload, $updateExisting = null, $replyMode = null)
     {
         $returnType = '\Metatavu\Metaform\Api\Model\Reply';
-        $request = $this->createReplyRequest($realmId, $metaformId, $payload, $updateExisting);
+        $request = $this->createReplyRequest($realmId, $metaformId, $payload, $updateExisting, $replyMode);
 
         return $this->client
             ->sendAsync($request)
@@ -293,12 +297,13 @@ class RepliesApi
      * @param  string $realmId realm id (required)
      * @param  string $metaformId Metaform id (required)
      * @param  \Metatavu\Metaform\Api\Model\Reply $payload Payload (required)
-     * @param  bool $updateExisting specifies that existing reply should be updated (optional)
+     * @param  bool $updateExisting specifies that existing reply should be updated. DEPRECATED, use replymode instead (optional)
+     * @param  string $replyMode specifies reply mode that will be used. possible values UPDATE, REVISION, CUMULATIVE (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function createReplyRequest($realmId, $metaformId, $payload, $updateExisting = null)
+    protected function createReplyRequest($realmId, $metaformId, $payload, $updateExisting = null, $replyMode = null)
     {
         // verify the required parameter 'realmId' is set
         if ($realmId === null) {
@@ -329,6 +334,10 @@ class RepliesApi
         // query params
         if ($updateExisting !== null) {
             $queryParams['updateExisting'] = ObjectSerializer::toQueryValue($updateExisting);
+        }
+        // query params
+        if ($replyMode !== null) {
+            $queryParams['replyMode'] = ObjectSerializer::toQueryValue($replyMode);
         }
 
         // path params

@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 
 # **createReply**
-> \Metatavu\Metaform\Api\Model\Reply createReply($realmId, $metaformId, $payload, $updateExisting)
+> \Metatavu\Metaform\Api\Model\Reply createReply($realmId, $metaformId, $payload, $updateExisting, $replyMode)
 
 create new form reply
 
@@ -33,10 +33,11 @@ $api_instance = new Metatavu\Metaform\Api\RepliesApi(new \Http\Adapter\Guzzle6\C
 $realmId = "realmId_example"; // string | realm id
 $metaformId = "metaformId_example"; // string | Metaform id
 $payload = new \Metatavu\Metaform\Api\Model\Reply(); // \Metatavu\Metaform\Api\Model\Reply | Payload
-$updateExisting = true; // bool | specifies that existing reply should be updated
+$updateExisting = true; // bool | specifies that existing reply should be updated. DEPRECATED, use replymode instead
+$replyMode = "replyMode_example"; // string | specifies reply mode that will be used. possible values UPDATE, REVISION, CUMULATIVE
 
 try {
-    $result = $api_instance->createReply($realmId, $metaformId, $payload, $updateExisting);
+    $result = $api_instance->createReply($realmId, $metaformId, $payload, $updateExisting, $replyMode);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling RepliesApi->createReply: ', $e->getMessage(), PHP_EOL;
@@ -51,7 +52,8 @@ Name | Type | Description  | Notes
  **realmId** | **string**| realm id |
  **metaformId** | **string**| Metaform id |
  **payload** | [**\Metatavu\Metaform\Api\Model\Reply**](../Model/Reply.md)| Payload |
- **updateExisting** | **bool**| specifies that existing reply should be updated | [optional]
+ **updateExisting** | **bool**| specifies that existing reply should be updated. DEPRECATED, use replymode instead | [optional]
+ **replyMode** | **string**| specifies reply mode that will be used. possible values UPDATE, REVISION, CUMULATIVE | [optional]
 
 ### Return type
 
