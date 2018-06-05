@@ -62,15 +62,16 @@ Metatavu\Metaform\Configuration::getDefaultConfiguration()->setApiKey('Authoriza
 // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 // Metatavu\Metaform\Configuration::getDefaultConfiguration()->setApiKeyPrefix('Authorization', 'Bearer');
 
-$api_instance = new Metatavu\Metaform\Api\MetaformsApi();
+$api_instance = new Metatavu\Metaform\Api\EmailNotificationsApi();
 $realmId = "realmId_example"; // string | realm id
-$payload = new \Metatavu\Metaform\Api\Model\Metaform(); // \Metatavu\Metaform\Api\Model\Metaform | Payload
+$metaformId = "metaformId_example"; // string | Metaform id
+$payload = new \Metatavu\Metaform\Api\Model\EmailNotification(); // \Metatavu\Metaform\Api\Model\EmailNotification | Payload
 
 try {
-    $result = $api_instance->createMetaform($realmId, $payload);
+    $result = $api_instance->createEmailNotification($realmId, $metaformId, $payload);
     print_r($result);
 } catch (Exception $e) {
-    echo 'Exception when calling MetaformsApi->createMetaform: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling EmailNotificationsApi->createEmailNotification: ', $e->getMessage(), PHP_EOL;
 }
 
 ?>
@@ -82,6 +83,11 @@ All URIs are relative to *https://localhost*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+*EmailNotificationsApi* | [**createEmailNotification**](docs/Api/EmailNotificationsApi.md#createemailnotification) | **POST** /realms/{realmId}/metaforms/{metaformId}/emailNotifications | create new form email notification
+*EmailNotificationsApi* | [**deleteEmailNotification**](docs/Api/EmailNotificationsApi.md#deleteemailnotification) | **DELETE** /realms/{realmId}/metaforms/{metaformId}/emailNotifications/{emailNotificationId} | Deletes an email notification
+*EmailNotificationsApi* | [**findEmailNotification**](docs/Api/EmailNotificationsApi.md#findemailnotification) | **GET** /realms/{realmId}/metaforms/{metaformId}/emailNotifications/{emailNotificationId} | Find a single emai notification
+*EmailNotificationsApi* | [**listEmailNotifications**](docs/Api/EmailNotificationsApi.md#listemailnotifications) | **GET** /realms/{realmId}/metaforms/{metaformId}/emailNotifications | Lists form email notifications
+*EmailNotificationsApi* | [**updateEmailNotification**](docs/Api/EmailNotificationsApi.md#updateemailnotification) | **PUT** /realms/{realmId}/metaforms/{metaformId}/emailNotifications/{emailNotificationId} | Updates email notification
 *MetaformsApi* | [**createMetaform**](docs/Api/MetaformsApi.md#createmetaform) | **POST** /realms/{realmId}/metaforms | create new Metaform
 *MetaformsApi* | [**deleteMetaform**](docs/Api/MetaformsApi.md#deletemetaform) | **DELETE** /realms/{realmId}/metaforms/{metaformId} | Deletes Metaform
 *MetaformsApi* | [**findMetaform**](docs/Api/MetaformsApi.md#findmetaform) | **GET** /realms/{realmId}/metaforms/{metaformId} | Finds single Metaform
@@ -98,6 +104,7 @@ Class | Method | HTTP request | Description
 ## Documentation For Models
 
  - [BadRequest](docs/Model/BadRequest.md)
+ - [EmailNotification](docs/Model/EmailNotification.md)
  - [Forbidden](docs/Model/Forbidden.md)
  - [InternalServerError](docs/Model/InternalServerError.md)
  - [Metaform](docs/Model/Metaform.md)
