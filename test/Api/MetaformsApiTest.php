@@ -81,6 +81,16 @@ class MetaformsApiTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Test case for deleteMetaform
+     *
+     * Deletes Metaform.
+     *
+     */
+    public function testDeleteMetaform()
+    {
+    }
+
+    /**
      * Test case for findMetaform
      *
      * Finds single Metaform.
