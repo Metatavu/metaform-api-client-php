@@ -58,6 +58,8 @@ class EmailNotification implements ModelInterface, ArrayAccess
       */
     protected static $swaggerTypes = [
         'id' => 'string',
+        'subjectTemplate' => 'string',
+        'contentTemplate' => 'string',
         'emails' => 'string[]'
     ];
 
@@ -68,6 +70,8 @@ class EmailNotification implements ModelInterface, ArrayAccess
       */
     protected static $swaggerFormats = [
         'id' => 'uuid',
+        'subjectTemplate' => null,
+        'contentTemplate' => null,
         'emails' => null
     ];
 
@@ -99,6 +103,8 @@ class EmailNotification implements ModelInterface, ArrayAccess
      */
     protected static $attributeMap = [
         'id' => 'id',
+        'subjectTemplate' => 'subjectTemplate',
+        'contentTemplate' => 'contentTemplate',
         'emails' => 'emails'
     ];
 
@@ -109,6 +115,8 @@ class EmailNotification implements ModelInterface, ArrayAccess
      */
     protected static $setters = [
         'id' => 'setId',
+        'subjectTemplate' => 'setSubjectTemplate',
+        'contentTemplate' => 'setContentTemplate',
         'emails' => 'setEmails'
     ];
 
@@ -119,6 +127,8 @@ class EmailNotification implements ModelInterface, ArrayAccess
      */
     protected static $getters = [
         'id' => 'getId',
+        'subjectTemplate' => 'getSubjectTemplate',
+        'contentTemplate' => 'getContentTemplate',
         'emails' => 'getEmails'
     ];
 
@@ -183,6 +193,8 @@ class EmailNotification implements ModelInterface, ArrayAccess
     public function __construct(array $data = null)
     {
         $this->container['id'] = isset($data['id']) ? $data['id'] : null;
+        $this->container['subjectTemplate'] = isset($data['subjectTemplate']) ? $data['subjectTemplate'] : null;
+        $this->container['contentTemplate'] = isset($data['contentTemplate']) ? $data['contentTemplate'] : null;
         $this->container['emails'] = isset($data['emails']) ? $data['emails'] : null;
     }
 
@@ -195,6 +207,12 @@ class EmailNotification implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
+        if ($this->container['subjectTemplate'] === null) {
+            $invalidProperties[] = "'subjectTemplate' can't be null";
+        }
+        if ($this->container['contentTemplate'] === null) {
+            $invalidProperties[] = "'contentTemplate' can't be null";
+        }
         if ($this->container['emails'] === null) {
             $invalidProperties[] = "'emails' can't be null";
         }
@@ -210,6 +228,12 @@ class EmailNotification implements ModelInterface, ArrayAccess
     public function valid()
     {
 
+        if ($this->container['subjectTemplate'] === null) {
+            return false;
+        }
+        if ($this->container['contentTemplate'] === null) {
+            return false;
+        }
         if ($this->container['emails'] === null) {
             return false;
         }
@@ -237,6 +261,54 @@ class EmailNotification implements ModelInterface, ArrayAccess
     public function setId($id)
     {
         $this->container['id'] = $id;
+
+        return $this;
+    }
+
+    /**
+     * Gets subjectTemplate
+     *
+     * @return string
+     */
+    public function getSubjectTemplate()
+    {
+        return $this->container['subjectTemplate'];
+    }
+
+    /**
+     * Sets subjectTemplate
+     *
+     * @param string $subjectTemplate
+     *
+     * @return $this
+     */
+    public function setSubjectTemplate($subjectTemplate)
+    {
+        $this->container['subjectTemplate'] = $subjectTemplate;
+
+        return $this;
+    }
+
+    /**
+     * Gets contentTemplate
+     *
+     * @return string
+     */
+    public function getContentTemplate()
+    {
+        return $this->container['contentTemplate'];
+    }
+
+    /**
+     * Sets contentTemplate
+     *
+     * @param string $contentTemplate
+     *
+     * @return $this
+     */
+    public function setContentTemplate($contentTemplate)
+    {
+        $this->container['contentTemplate'] = $contentTemplate;
 
         return $this;
     }
