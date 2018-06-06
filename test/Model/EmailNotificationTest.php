@@ -84,6 +84,20 @@ class EmailNotificationTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Test attribute "subjectTemplate"
+     */
+    public function testPropertySubjectTemplate()
+    {
+    }
+
+    /**
+     * Test attribute "contentTemplate"
+     */
+    public function testPropertyContentTemplate()
+    {
+    }
+
+    /**
      * Test attribute "emails"
      */
     public function testPropertyEmails()

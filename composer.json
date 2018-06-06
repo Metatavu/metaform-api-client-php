@@ -1,6 +1,10 @@
 {
     "name": "metatavu/metaform-api-client-php",
+<<<<<<< HEAD
     "version": "0.0.5",
+=======
+    "version": "0.0.4",
+>>>>>>> ea98e2a9bdc9ba0d5609adddfc384b1c6352792d
     "description": "",
     "keywords": [
         "swagger",
