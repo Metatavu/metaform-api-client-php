@@ -60,6 +60,7 @@ class Metaform implements ModelInterface, ArrayAccess
         'replyStrategy' => 'string',
         'exportThemeId' => 'string',
         'allowAnonymous' => 'bool',
+        'allowDrafts' => 'bool',
         'title' => 'string',
         'sections' => '\Metatavu\Metaform\Api\Model\MetaformSection[]'
     ];
@@ -74,6 +75,7 @@ class Metaform implements ModelInterface, ArrayAccess
         'replyStrategy' => null,
         'exportThemeId' => 'uuid',
         'allowAnonymous' => null,
+        'allowDrafts' => null,
         'title' => null,
         'sections' => null
     ];
@@ -109,6 +111,7 @@ class Metaform implements ModelInterface, ArrayAccess
         'replyStrategy' => 'replyStrategy',
         'exportThemeId' => 'exportThemeId',
         'allowAnonymous' => 'allowAnonymous',
+        'allowDrafts' => 'allowDrafts',
         'title' => 'title',
         'sections' => 'sections'
     ];
@@ -123,6 +126,7 @@ class Metaform implements ModelInterface, ArrayAccess
         'replyStrategy' => 'setReplyStrategy',
         'exportThemeId' => 'setExportThemeId',
         'allowAnonymous' => 'setAllowAnonymous',
+        'allowDrafts' => 'setAllowDrafts',
         'title' => 'setTitle',
         'sections' => 'setSections'
     ];
@@ -137,6 +141,7 @@ class Metaform implements ModelInterface, ArrayAccess
         'replyStrategy' => 'getReplyStrategy',
         'exportThemeId' => 'getExportThemeId',
         'allowAnonymous' => 'getAllowAnonymous',
+        'allowDrafts' => 'getAllowDrafts',
         'title' => 'getTitle',
         'sections' => 'getSections'
     ];
@@ -220,6 +225,7 @@ class Metaform implements ModelInterface, ArrayAccess
         $this->container['replyStrategy'] = isset($data['replyStrategy']) ? $data['replyStrategy'] : null;
         $this->container['exportThemeId'] = isset($data['exportThemeId']) ? $data['exportThemeId'] : null;
         $this->container['allowAnonymous'] = isset($data['allowAnonymous']) ? $data['allowAnonymous'] : null;
+        $this->container['allowDrafts'] = isset($data['allowDrafts']) ? $data['allowDrafts'] : null;
         $this->container['title'] = isset($data['title']) ? $data['title'] : null;
         $this->container['sections'] = isset($data['sections']) ? $data['sections'] : null;
     }
@@ -362,6 +368,30 @@ class Metaform implements ModelInterface, ArrayAccess
     public function setAllowAnonymous($allowAnonymous)
     {
         $this->container['allowAnonymous'] = $allowAnonymous;
+
+        return $this;
+    }
+
+    /**
+     * Gets allowDrafts
+     *
+     * @return bool
+     */
+    public function getAllowDrafts()
+    {
+        return $this->container['allowDrafts'];
+    }
+
+    /**
+     * Sets allowDrafts
+     *
+     * @param bool $allowDrafts Are drafts allowed or not
+     *
+     * @return $this
+     */
+    public function setAllowDrafts($allowDrafts)
+    {
+        $this->container['allowDrafts'] = $allowDrafts;
 
         return $this;
     }
