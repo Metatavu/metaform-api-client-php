@@ -131,6 +131,7 @@ Class | Method | HTTP request | Description
  - [MetaformField](docs/Model/MetaformField.md)
  - [MetaformFieldFlags](docs/Model/MetaformFieldFlags.md)
  - [MetaformFieldOption](docs/Model/MetaformFieldOption.md)
+ - [MetaformFieldPermissioncontexts](docs/Model/MetaformFieldPermissioncontexts.md)
  - [MetaformFieldType](docs/Model/MetaformFieldType.md)
  - [MetaformSection](docs/Model/MetaformSection.md)
  - [MetaformTableColumn](docs/Model/MetaformTableColumn.md)
