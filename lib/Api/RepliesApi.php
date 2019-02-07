@@ -1410,16 +1410,25 @@ class RepliesApi
      * @param  string $modifiedAfter Filter results modified after specified time (optional)
      * @param  bool $includeRevisions Specifies that revisions should be included into response (optional)
      * @param  string[] $fields Filter results by field values. Format is field:value, multiple values can be added by using comma separator. E.g. field1&#x3D;value,field2&#x3D;another (optional)
+<<<<<<< HEAD
      * @param  string $firstResult First index of results to be returned (optional)
      * @param  string $maxResults How many items to return at one time (optional)
+=======
+>>>>>>> 7fc12be5c5ace6aa3686ee1f7dc2d66a14aca476
      *
      * @throws \Metatavu\Metaform\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \Metatavu\Metaform\Api\Model\Reply[]
      */
+<<<<<<< HEAD
     public function listReplies($realmId, $metaformId, $userId = null, $createdBefore = null, $createdAfter = null, $modifiedBefore = null, $modifiedAfter = null, $includeRevisions = null, $fields = null, $firstResult = null, $maxResults = null)
     {
         list($response) = $this->listRepliesWithHttpInfo($realmId, $metaformId, $userId, $createdBefore, $createdAfter, $modifiedBefore, $modifiedAfter, $includeRevisions, $fields, $firstResult, $maxResults);
+=======
+    public function listReplies($realmId, $metaformId, $userId = null, $createdBefore = null, $createdAfter = null, $modifiedBefore = null, $modifiedAfter = null, $includeRevisions = null, $fields = null)
+    {
+        list($response) = $this->listRepliesWithHttpInfo($realmId, $metaformId, $userId, $createdBefore, $createdAfter, $modifiedBefore, $modifiedAfter, $includeRevisions, $fields);
+>>>>>>> 7fc12be5c5ace6aa3686ee1f7dc2d66a14aca476
         return $response;
     }
 
@@ -1437,17 +1446,27 @@ class RepliesApi
      * @param  string $modifiedAfter Filter results modified after specified time (optional)
      * @param  bool $includeRevisions Specifies that revisions should be included into response (optional)
      * @param  string[] $fields Filter results by field values. Format is field:value, multiple values can be added by using comma separator. E.g. field1&#x3D;value,field2&#x3D;another (optional)
+<<<<<<< HEAD
      * @param  string $firstResult First index of results to be returned (optional)
      * @param  string $maxResults How many items to return at one time (optional)
+=======
+>>>>>>> 7fc12be5c5ace6aa3686ee1f7dc2d66a14aca476
      *
      * @throws \Metatavu\Metaform\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \Metatavu\Metaform\Api\Model\Reply[], HTTP status code, HTTP response headers (array of strings)
      */
+<<<<<<< HEAD
     public function listRepliesWithHttpInfo($realmId, $metaformId, $userId = null, $createdBefore = null, $createdAfter = null, $modifiedBefore = null, $modifiedAfter = null, $includeRevisions = null, $fields = null, $firstResult = null, $maxResults = null)
     {
         $returnType = '\Metatavu\Metaform\Api\Model\Reply[]';
         $request = $this->listRepliesRequest($realmId, $metaformId, $userId, $createdBefore, $createdAfter, $modifiedBefore, $modifiedAfter, $includeRevisions, $fields, $firstResult, $maxResults);
+=======
+    public function listRepliesWithHttpInfo($realmId, $metaformId, $userId = null, $createdBefore = null, $createdAfter = null, $modifiedBefore = null, $modifiedAfter = null, $includeRevisions = null, $fields = null)
+    {
+        $returnType = '\Metatavu\Metaform\Api\Model\Reply[]';
+        $request = $this->listRepliesRequest($realmId, $metaformId, $userId, $createdBefore, $createdAfter, $modifiedBefore, $modifiedAfter, $includeRevisions, $fields);
+>>>>>>> 7fc12be5c5ace6aa3686ee1f7dc2d66a14aca476
 
         try {
 
@@ -1558,15 +1577,24 @@ class RepliesApi
      * @param  string $modifiedAfter Filter results modified after specified time (optional)
      * @param  bool $includeRevisions Specifies that revisions should be included into response (optional)
      * @param  string[] $fields Filter results by field values. Format is field:value, multiple values can be added by using comma separator. E.g. field1&#x3D;value,field2&#x3D;another (optional)
+<<<<<<< HEAD
      * @param  string $firstResult First index of results to be returned (optional)
      * @param  string $maxResults How many items to return at one time (optional)
+=======
+>>>>>>> 7fc12be5c5ace6aa3686ee1f7dc2d66a14aca476
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
+<<<<<<< HEAD
     public function listRepliesAsync($realmId, $metaformId, $userId = null, $createdBefore = null, $createdAfter = null, $modifiedBefore = null, $modifiedAfter = null, $includeRevisions = null, $fields = null, $firstResult = null, $maxResults = null)
     {
         return $this->listRepliesAsyncWithHttpInfo($realmId, $metaformId, $userId, $createdBefore, $createdAfter, $modifiedBefore, $modifiedAfter, $includeRevisions, $fields, $firstResult, $maxResults)
+=======
+    public function listRepliesAsync($realmId, $metaformId, $userId = null, $createdBefore = null, $createdAfter = null, $modifiedBefore = null, $modifiedAfter = null, $includeRevisions = null, $fields = null)
+    {
+        return $this->listRepliesAsyncWithHttpInfo($realmId, $metaformId, $userId, $createdBefore, $createdAfter, $modifiedBefore, $modifiedAfter, $includeRevisions, $fields)
+>>>>>>> 7fc12be5c5ace6aa3686ee1f7dc2d66a14aca476
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1588,16 +1616,26 @@ class RepliesApi
      * @param  string $modifiedAfter Filter results modified after specified time (optional)
      * @param  bool $includeRevisions Specifies that revisions should be included into response (optional)
      * @param  string[] $fields Filter results by field values. Format is field:value, multiple values can be added by using comma separator. E.g. field1&#x3D;value,field2&#x3D;another (optional)
+<<<<<<< HEAD
      * @param  string $firstResult First index of results to be returned (optional)
      * @param  string $maxResults How many items to return at one time (optional)
+=======
+>>>>>>> 7fc12be5c5ace6aa3686ee1f7dc2d66a14aca476
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
+<<<<<<< HEAD
     public function listRepliesAsyncWithHttpInfo($realmId, $metaformId, $userId = null, $createdBefore = null, $createdAfter = null, $modifiedBefore = null, $modifiedAfter = null, $includeRevisions = null, $fields = null, $firstResult = null, $maxResults = null)
     {
         $returnType = '\Metatavu\Metaform\Api\Model\Reply[]';
         $request = $this->listRepliesRequest($realmId, $metaformId, $userId, $createdBefore, $createdAfter, $modifiedBefore, $modifiedAfter, $includeRevisions, $fields, $firstResult, $maxResults);
+=======
+    public function listRepliesAsyncWithHttpInfo($realmId, $metaformId, $userId = null, $createdBefore = null, $createdAfter = null, $modifiedBefore = null, $modifiedAfter = null, $includeRevisions = null, $fields = null)
+    {
+        $returnType = '\Metatavu\Metaform\Api\Model\Reply[]';
+        $request = $this->listRepliesRequest($realmId, $metaformId, $userId, $createdBefore, $createdAfter, $modifiedBefore, $modifiedAfter, $includeRevisions, $fields);
+>>>>>>> 7fc12be5c5ace6aa3686ee1f7dc2d66a14aca476
 
         return $this->client
             ->sendAsync($request)
@@ -1648,13 +1686,20 @@ class RepliesApi
      * @param  string $modifiedAfter Filter results modified after specified time (optional)
      * @param  bool $includeRevisions Specifies that revisions should be included into response (optional)
      * @param  string[] $fields Filter results by field values. Format is field:value, multiple values can be added by using comma separator. E.g. field1&#x3D;value,field2&#x3D;another (optional)
+<<<<<<< HEAD
      * @param  string $firstResult First index of results to be returned (optional)
      * @param  string $maxResults How many items to return at one time (optional)
+=======
+>>>>>>> 7fc12be5c5ace6aa3686ee1f7dc2d66a14aca476
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
+<<<<<<< HEAD
     protected function listRepliesRequest($realmId, $metaformId, $userId = null, $createdBefore = null, $createdAfter = null, $modifiedBefore = null, $modifiedAfter = null, $includeRevisions = null, $fields = null, $firstResult = null, $maxResults = null)
+=======
+    protected function listRepliesRequest($realmId, $metaformId, $userId = null, $createdBefore = null, $createdAfter = null, $modifiedBefore = null, $modifiedAfter = null, $includeRevisions = null, $fields = null)
+>>>>>>> 7fc12be5c5ace6aa3686ee1f7dc2d66a14aca476
     {
         // verify the required parameter 'realmId' is set
         if ($realmId === null) {
@@ -1707,6 +1752,7 @@ class RepliesApi
         if ($fields !== null) {
             $queryParams['fields'] = ObjectSerializer::toQueryValue($fields);
         }
+<<<<<<< HEAD
         // query params
         if ($firstResult !== null) {
             $queryParams['firstResult'] = ObjectSerializer::toQueryValue($firstResult);
@@ -1715,6 +1761,8 @@ class RepliesApi
         if ($maxResults !== null) {
             $queryParams['maxResults'] = ObjectSerializer::toQueryValue($maxResults);
         }
+=======
+>>>>>>> 7fc12be5c5ace6aa3686ee1f7dc2d66a14aca476
 
         // path params
         if ($realmId !== null) {

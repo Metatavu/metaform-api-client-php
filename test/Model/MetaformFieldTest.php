@@ -84,6 +84,7 @@ class MetaformFieldTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+<<<<<<< HEAD
      * Test attribute "permissionContexts"
      */
     public function testPropertyPermissionContexts()
@@ -91,6 +92,8 @@ class MetaformFieldTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+=======
+>>>>>>> 7fc12be5c5ace6aa3686ee1f7dc2d66a14aca476
      * Test attribute "name"
      */
     public function testPropertyName()

@@ -233,7 +233,11 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **listReplies**
+<<<<<<< HEAD
 > \Metatavu\Metaform\Api\Model\Reply[] listReplies($realmId, $metaformId, $userId, $createdBefore, $createdAfter, $modifiedBefore, $modifiedAfter, $includeRevisions, $fields, $firstResult, $maxResults)
+=======
+> \Metatavu\Metaform\Api\Model\Reply[] listReplies($realmId, $metaformId, $userId, $createdBefore, $createdAfter, $modifiedBefore, $modifiedAfter, $includeRevisions, $fields)
+>>>>>>> 7fc12be5c5ace6aa3686ee1f7dc2d66a14aca476
 
 Lists form replies
 
@@ -259,11 +263,17 @@ $modifiedBefore = "modifiedBefore_example"; // string | Filter results modified 
 $modifiedAfter = "modifiedAfter_example"; // string | Filter results modified after specified time
 $includeRevisions = true; // bool | Specifies that revisions should be included into response
 $fields = array("fields_example"); // string[] | Filter results by field values. Format is field:value, multiple values can be added by using comma separator. E.g. field1=value,field2=another
+<<<<<<< HEAD
 $firstResult = "firstResult_example"; // string | First index of results to be returned
 $maxResults = "maxResults_example"; // string | How many items to return at one time
 
 try {
     $result = $api_instance->listReplies($realmId, $metaformId, $userId, $createdBefore, $createdAfter, $modifiedBefore, $modifiedAfter, $includeRevisions, $fields, $firstResult, $maxResults);
+=======
+
+try {
+    $result = $api_instance->listReplies($realmId, $metaformId, $userId, $createdBefore, $createdAfter, $modifiedBefore, $modifiedAfter, $includeRevisions, $fields);
+>>>>>>> 7fc12be5c5ace6aa3686ee1f7dc2d66a14aca476
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling RepliesApi->listReplies: ', $e->getMessage(), PHP_EOL;
@@ -284,8 +294,11 @@ Name | Type | Description  | Notes
  **modifiedAfter** | **string**| Filter results modified after specified time | [optional]
  **includeRevisions** | **bool**| Specifies that revisions should be included into response | [optional]
  **fields** | [**string[]**](../Model/string.md)| Filter results by field values. Format is field:value, multiple values can be added by using comma separator. E.g. field1&#x3D;value,field2&#x3D;another | [optional]
+<<<<<<< HEAD
  **firstResult** | **string**| First index of results to be returned | [optional]
  **maxResults** | **string**| How many items to return at one time | [optional]
+=======
+>>>>>>> 7fc12be5c5ace6aa3686ee1f7dc2d66a14aca476
 
 ### Return type
 
